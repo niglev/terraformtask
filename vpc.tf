@@ -132,7 +132,6 @@ resource "aws_security_group" "sgweb" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 
-
   tags {
     Name = "Web Server SG"
   }
@@ -164,7 +163,6 @@ resource "aws_security_group" "sgdb" {
     protocol    = "tcp"
     cidr_blocks = ["${var.private_subnet_cidr}"]
   }
-
 
   tags {
     Name = "DB SG"

@@ -20,6 +20,7 @@ resource "aws_instance" "database" {
   instance_type = "t2.micro"
   key_name      = "taskkey"
   subnet_id     = "${aws_subnet.private-subnet.id}"
+  user_data     = "${data.template_file.initdb.rendered}"
 
   security_groups = [
     "${aws_security_group.sgdb.id}",
