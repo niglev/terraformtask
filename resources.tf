@@ -33,7 +33,7 @@ resource "aws_instance" "web" {
   }
 
   tags {
-    Name = "webserver-${count.index}"
+    Name = "webserver"
   }
 }
 
