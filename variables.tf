@@ -17,3 +17,8 @@ variable "private_subnet_cidr" {
   description = "CIDR for the private subnet"
   default     = "10.0.2.0/24"
 }
+
+variable "key_path" {
+  description = "SSH Public Key path"
+  default     = "~/.ssh/id_rsa"
+}
