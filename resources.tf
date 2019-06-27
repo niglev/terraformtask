@@ -33,7 +33,7 @@ resource "aws_instance" "web" {
   }
 
   tags {
-    Name = "webserver"
+    Name = "webserver-${count.index}"
   }
 }
 
@@ -59,3 +59,28 @@ resource "aws_instance" "database" {
   }
 }
 
+# Create Classic ELB
+resource "aws_elb" "default" {
+  name               = "wordpress-elb"
+  subnets            = ["${aws_subnet.public-subnet.id}"]
+  instances          = ["${aws_instance.web.*.id}"]
+
+  security_groups = [
+    "${aws_security_group.sgweb.id}",
+  ]
+
+  listener {
+    instance_port     = 80
+    instance_protocol = "http"
+    lb_port           = 80
+    lb_protocol       = "http"
+  }
+
+  health_check {
+    healthy_threshold   = 2
+    unhealthy_threshold = 2
+    timeout             = 3
+    target              = "TCP:80"
+    interval            = 5
+  }
+}
